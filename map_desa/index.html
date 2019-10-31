@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Belajar webgis</title>
+    <link rel="stylesheet" href="ter/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="petakelebuh">
+
+    </div>
+
+    <script src="ter/leaflet.js"></script>
+    <script src="js/kelebuh.js"></script>
+    <script>
+        var peta = L.map('petakelebuh').setView([-8.6822729, 116.1289847], 11);
+        L.marker([-8.698259, 116.2823649]).addTo(peta)
+            .bindPopup('STMIK Lombok')
+            .openPopup();
+        L.marker([-8.6476488, 116.5272865]).addTo(peta)
+            .bindPopup('Ma Muallimin nw Pancor')
+            .openPopup();
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                shadowUrl: 'ter/images/market.png',
+                iconSize: [38, 95],
+                shadowSize: [50, 64],
+                iconAnchor: [22, 94],
+                shadowAnchor: [4, 62],
+                popupAnchor: [-3, -76]
+            }
+        });
+        // -8.6322175,116.3466858,
+
+        var greenIcon = L.icon({
+            iconUrl: 'ter/images/market.png',
+            iconSize: [25, 25], // size of the icon
+            iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+            popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        });
+
+        L.marker([-8.698259, 116.2823649], { icon: greenIcon }).addTo(peta);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2hhaXJ1ZWxrYWhmaWUiLCJhIjoiY2sxbHVmaGhhMDkyYzNkcGNzaGZxY2g2cCJ9.uDofzgqKLzZoGP0ps4sMPg', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'your.mapbox.access.token'
+        }).addTo(peta);
+
+        L.geoJSON([kelebuh], {
+            style: function (featur) {
+                return featur.properties && featur.properties.style;
+            }
+        }).addTo(peta); 
+    </script>
+
+
+
+    <!-- token 
+        pk.eyJ1Ijoia2hhaXJ1ZWxrYWhmaWUiLCJhIjoiY2sxbHVmaGhhMDkyYzNkcGNzaGZxY2g2cCJ9.uDofzgqKLzZoGP0ps4sMPg
+    -->
+    <!-- -8.6822729,116.1289847,11z -->
+</body>
+
+</html>
